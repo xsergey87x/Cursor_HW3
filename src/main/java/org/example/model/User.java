@@ -2,10 +2,10 @@ package org.example.model;
 
 public class User {
 
-    private String firstName = "";
-    private String lastName = "";
+    private String firstName = "null";
+    private String lastName = "null";
     private int age = 0;
-    private String gender = "";
+    private String gender = "null";
 
     public User(String firstName, String lastName, int age, String gender) {
         this.firstName = firstName;

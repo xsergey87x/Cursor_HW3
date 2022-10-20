@@ -26,21 +26,21 @@ public class Main {
 
             var resultSetTeenagers = statement.executeQuery(SELECT_ALL_USERS_TEENAGERS);
             while (resultSetTeenagers.next()) {
-                usersTeenagers.add(new User(resultSetTeenagers.getString("firstName"), resultSetTeenagers.getString("lastName"),
+                usersTeenagers.add(new User(resultSetTeenagers.getString("first_name"), resultSetTeenagers.getString("last_name"),
                         resultSetTeenagers.getInt("age"), resultSetTeenagers.getString("gender")));
             }
 
             var resultSetNameFinishO = statement.executeQuery(SELECT_ALL_USERS_NAME_FINISHED_O);
             while (resultSetNameFinishO.next()) {
-                usersNameFinishO.add(new User(resultSetNameFinishO.getString("firstName"), resultSetNameFinishO.getString("lastName"),
+                usersNameFinishO.add(new User(resultSetNameFinishO.getString("first_name"), resultSetNameFinishO.getString("last_name"),
                         resultSetNameFinishO.getInt("age"), resultSetNameFinishO.getString("gender")));
             }
 
             var resultSetWorkAge = statement.executeQuery(SELECT_ALL_USERS_WORK_AGE);
             while (resultSetWorkAge.next()) {
                 User user = new User();
-                user.setFirstName(resultSetWorkAge.getString("firstName"));
-                user.setLastName(resultSetWorkAge.getString("lastName"));
+                user.setFirstName(resultSetWorkAge.getString("first_name"));
+                user.setLastName(resultSetWorkAge.getString("last_name"));
                 user.setAge(resultSetWorkAge.getInt("age"));
                 user.setLastName(resultSetWorkAge.getString("gender"));
                 usersWorkAge.add(user);
@@ -49,8 +49,8 @@ public class Main {
             var resultSetNameWithA = statement.executeQuery(SELECT_ALL_USERS_NAME_WITH_A);
             while (resultSetNameWithA.next()) {
                 User user = new User();
-                user.setFirstName(resultSetNameWithA.getString("firstName"));
-                user.setLastName(resultSetNameWithA.getString("lastName"));
+                user.setFirstName(resultSetNameWithA.getString("first_name"));
+                user.setLastName(resultSetNameWithA.getString("last_name"));
                 user.setAge(resultSetNameWithA.getInt("age"));
                 user.setLastName(resultSetNameWithA.getString("gender"));
                 usersNameWithA.add(user);
@@ -59,17 +59,44 @@ public class Main {
             var resultSetFullAge = statement.executeQuery(SELECT_ALL_USERS_FULL_AGE);
             while (resultSetFullAge.next()) {
                 User user = new User();
-                user.setFirstName(resultSetFullAge.getString("firstName"));
-                user.setLastName(resultSetFullAge.getString("lastName"));
+                user.setFirstName(resultSetFullAge.getString("first_name"));
+                user.setLastName(resultSetFullAge.getString("last_name"));
                 user.setAge(resultSetFullAge.getInt("age"));
                 user.setLastName(resultSetFullAge.getString("gender"));
-                usersNameWithA.add(user);
+                usersFullAge.add(user);
             }
 
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
 
+        for (Object user : usersTeenagers) {
+            System.out.println(user.toString());
+        }
+
+        System.out.println("---------------------------------");
+
+        for (Object user : usersNameFinishO) {
+            System.out.println(user.toString());
+        }
+
+        System.out.println("---------------------------------");
+
+        for (Object user : usersWorkAge) {
+            System.out.println(user.toString());
+        }
+
+        System.out.println("---------------------------------");
+
+        for (Object user : usersNameWithA) {
+            System.out.println(user.toString());
+        }
+
+        System.out.println("---------------------------------");
+
+        for (Object user : usersFullAge) {
+            System.out.println(user.toString());
+        }
 
     }
 }
