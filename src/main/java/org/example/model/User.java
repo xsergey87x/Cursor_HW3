@@ -2,10 +2,10 @@ package org.example.model;
 
 public class User {
 
-    private String firstName = "null";
-    private String lastName = "null";
-    private int age = 0;
-    private String gender = "null";
+    private String firstName;
+    private String lastName;
+    private int age;
+    private String gender;
 
     public User(String firstName, String lastName, int age, String gender) {
         this.firstName = firstName;
@@ -15,9 +15,7 @@ public class User {
     }
 
     public User() {
-
     }
-
 
     public String getFirstName() {
         return firstName;

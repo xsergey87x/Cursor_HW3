@@ -7,13 +7,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import static org.example.utils.SqlQueries.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        Statement statement = null;
         var usersTeenagers = new ArrayList<>();
         var usersNameFinishO = new ArrayList<>();
         var usersWorkAge = new ArrayList<>();
@@ -22,7 +20,7 @@ public class Main {
 
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/my_db", "root", "1234");
-            statement = con.createStatement();
+            Statement statement = con.createStatement();
 
             var resultSetTeenagers = statement.executeQuery(SELECT_ALL_USERS_TEENAGERS);
             while (resultSetTeenagers.next()) {
@@ -38,65 +36,36 @@ public class Main {
 
             var resultSetWorkAge = statement.executeQuery(SELECT_ALL_USERS_WORK_AGE);
             while (resultSetWorkAge.next()) {
-                User user = new User();
-                user.setFirstName(resultSetWorkAge.getString("first_name"));
-                user.setLastName(resultSetWorkAge.getString("last_name"));
-                user.setAge(resultSetWorkAge.getInt("age"));
-                user.setLastName(resultSetWorkAge.getString("gender"));
-                usersWorkAge.add(user);
+                usersWorkAge.add(new User(resultSetWorkAge.getString("first_name"), resultSetWorkAge.getString("last_name"),
+                        resultSetWorkAge.getInt("age"), resultSetWorkAge.getString("gender")));
             }
 
             var resultSetNameWithA = statement.executeQuery(SELECT_ALL_USERS_NAME_WITH_A);
             while (resultSetNameWithA.next()) {
-                User user = new User();
-                user.setFirstName(resultSetNameWithA.getString("first_name"));
-                user.setLastName(resultSetNameWithA.getString("last_name"));
-                user.setAge(resultSetNameWithA.getInt("age"));
-                user.setLastName(resultSetNameWithA.getString("gender"));
-                usersNameWithA.add(user);
+                usersNameWithA.add(new User(resultSetNameWithA.getString("first_name"), resultSetNameWithA.getString("last_name"),
+                        resultSetNameWithA.getInt("age"), resultSetNameWithA.getString("gender")));
             }
 
             var resultSetFullAge = statement.executeQuery(SELECT_ALL_USERS_FULL_AGE);
             while (resultSetFullAge.next()) {
-                User user = new User();
-                user.setFirstName(resultSetFullAge.getString("first_name"));
-                user.setLastName(resultSetFullAge.getString("last_name"));
-                user.setAge(resultSetFullAge.getInt("age"));
-                user.setLastName(resultSetFullAge.getString("gender"));
-                usersFullAge.add(user);
+                usersFullAge.add(new User(resultSetFullAge.getString("first_name"), resultSetFullAge.getString("last_name"),
+                        resultSetFullAge.getInt("age"), resultSetFullAge.getString("gender")));
             }
-
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
 
-        for (Object user : usersTeenagers) {
-            System.out.println(user.toString());
-        }
+        printUser(usersTeenagers);
+        printUser(usersNameFinishO);
+        printUser(usersWorkAge);
+        printUser(usersNameWithA);
+        printUser(usersFullAge);
+    }
 
+    public static void printUser(ArrayList<Object> user) {
+        for (Object person : user) {
+            System.out.println(person.toString());
+        }
         System.out.println("---------------------------------");
-
-        for (Object user : usersNameFinishO) {
-            System.out.println(user.toString());
-        }
-
-        System.out.println("---------------------------------");
-
-        for (Object user : usersWorkAge) {
-            System.out.println(user.toString());
-        }
-
-        System.out.println("---------------------------------");
-
-        for (Object user : usersNameWithA) {
-            System.out.println(user.toString());
-        }
-
-        System.out.println("---------------------------------");
-
-        for (Object user : usersFullAge) {
-            System.out.println(user.toString());
-        }
-
     }
 }
